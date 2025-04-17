@@ -1,17 +1,28 @@
-﻿using BookieStore.Models;
+﻿using BookieStore.DataAccess.Data;
+using BookieStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using BookieStore.DataAccess.Repository.IRepository;
+using BookieStore.DataAccess.Repository;
 
-namespace BookieStore.Controllers
+
+
+namespace BookieStoreWeb.Areas.Admin.Controllers
 {
+
+    [Area("Admin")]
     public class CategoryController : Controller
     {
 
-        private readonly ApplicationContext _context;
-        public CategoryController(ApplicationContext context) => _context = context;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public CategoryController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         public IActionResult Index()
         {
-            List<Category> Categories = _context.Categories.ToList();
+            List<Category> Categories = _unitOfWork.Category.GetAll().ToList();
             return View(Categories);
         }
 
@@ -23,8 +34,8 @@ namespace BookieStore.Controllers
         [HttpPost]
         public IActionResult Create(Category category)
         {
-            _context.Categories.Add(category);
-            _context.SaveChanges();
+            _unitOfWork.Category.Add(category);
+            _unitOfWork.Save();
 
             if (category.Description == "Test")
             {
@@ -45,7 +56,7 @@ namespace BookieStore.Controllers
                 return NotFound();
             }
 
-            Category? category = _context.Categories.FirstOrDefault(c => c.Id == id);
+            Category? category = _unitOfWork.Category.Get(c => c.Id == id); 
 
             if (category == null)
             {
@@ -57,15 +68,15 @@ namespace BookieStore.Controllers
         [HttpPost]
         public IActionResult Edit(Category category)
         {
-            Category? existingCategory = _context.Categories.FirstOrDefault(c => c.Id == category.Id);
+            Category? existingCategory = _unitOfWork.Category.Get(c => c.Id == category.Id); 
             if (existingCategory == null)
             {
                 return NotFound();
             }
             existingCategory.Name = category.Name;
             existingCategory.Description = category.Description;
-            _context.Categories.Update(existingCategory);
-            _context.SaveChanges();
+            _unitOfWork.Category.Update(existingCategory);
+            _unitOfWork.Save();
 
             if (category.Description == "Test")
             {
@@ -87,7 +98,7 @@ namespace BookieStore.Controllers
                 return NotFound();
             }
 
-            Category? category = _context.Categories.FirstOrDefault(c => c.Id == id);
+            Category? category = _unitOfWork.Category.Get(c => c.Id == id);
 
             if (category == null)
             {
@@ -99,14 +110,14 @@ namespace BookieStore.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? existingCategory = _context.Categories.FirstOrDefault(c => c.Id == id);
+            Category? existingCategory = _unitOfWork.Category.Get(c => c.Id == id);
             if (existingCategory == null)
             {
                 return NotFound();
             }
 
-            _context.Categories.Remove(existingCategory);
-            _context.SaveChanges();
+            _unitOfWork.Category.Remove(existingCategory);
+            _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully!";
             return RedirectToAction("index");
         }
