@@ -2,6 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using BookieStore.Models;
 using BookieStore.DataAccess.Repository.IRepository;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookieStoreWeb.Areas.Customer.Controllers;
 
@@ -25,8 +27,36 @@ public class HomeController : Controller
 
     public IActionResult Details(int productId)
     {
-        Product product = _unitOfWork.Product.Get(u => u.Id == productId, IncludeProperties: "Category");
-        return View(product);
+        ShoppingCart cart = new()
+        {
+            ProductId = productId,
+            Product = _unitOfWork.Product.Get(u => u.Id == productId, IncludeProperties: "Category"),
+            Count = 1
+        };
+        return View(cart);
+    }
+
+    [HttpPost]
+    [Authorize]
+    public IActionResult Details(ShoppingCart cart)
+    {
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+        cart.ApplicationUserId = userId;
+
+        var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.ApplicationUserId == userId && u.ProductId == cart.ProductId);
+        if (cartFromDb == null)
+        {
+            _unitOfWork.ShoppingCart.Add(cart);
+        }
+        else
+        {
+            cartFromDb.Count += cart.Count;
+            _unitOfWork.ShoppingCart.Update(cartFromDb);
+        }
+        _unitOfWork.Save();
+        TempData["success"] = "Shopping Cart Updated Successfully";
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Privacy()

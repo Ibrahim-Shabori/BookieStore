@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using BookieStore.DataAccess.Repository.IRepository;
 using BookieStore.DataAccess.Repository;
+using BookieStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -11,6 +13,7 @@ namespace BookieStoreWeb.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
 

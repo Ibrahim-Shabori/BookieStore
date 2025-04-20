@@ -1,0 +1,103 @@
+﻿@model Company
+
+<div class="my-4 border-0 card shadow">
+	<div class="card-header bg-secondary bg-gradient ml-0 py-3">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h2 class="text-white py-2">@(Model.Id != 0 ? "Update" : "Create") Company</h2>
+			</div>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		<form method="post" class="row">
+			<div class="row">
+				<div class="col-12">
+					<div class="border p-3">
+
+						<div asp-validation-summary="All"></div>
+						<input type="hidden" asp-for="Id" />
+
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Name" class="form-control border-0 shadow" placeholder="Company Name" />
+							<label asp-for="Name" class="ms-2">Company Name</label>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="StreetAddress" class="form-control border-0 shadow" placeholder="Street Address" />
+							<label asp-for="StreetAddress" class="ms-2">Street Address</label>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="City" class="form-control border-0 shadow" placeholder="City" />
+							<label asp-for="City" class="ms-2">City</label>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="State" class="form-control border-0 shadow" placeholder="State" />
+							<label asp-for="State" class="ms-2">State</label>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="PostalCode" class="form-control border-0 shadow" placeholder="Postal Code" />
+							<label asp-for="PostalCode" class="ms-2">Postal Code</label>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="PhoneNumber" class="form-control border-0 shadow" placeholder="Phone Number" />
+							<label asp-for="PhoneNumber" class="ms-2">Phone Number</label>
+						</div>
+
+						<div class="row justify-content-center pt-2">
+							<div class="col-6 col-md-3">
+								@if (Model.Id != 0)
+								{
+									<button type="submit" class="btn btn-outline-primary form-control">
+										Update Company
+									</button>
+								}
+								else
+								{
+									<button type="submit" class="btn btn-outline-primary form-control">
+										Create Company
+									</button>
+								}
+							</div>
+
+							<div class="col-6 col-md-3">
+								<a class="btn btn-outline-primary form-control " asp-controller="Company" asp-action="Index">
+									Back To List
+								</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+		</form>
+	</div>
+</div>
+
+
+
+@section Scripts {
+	<script>
+		tinymce.init({
+		  selector: 'textarea',
+		  plugins: [
+			// Core editing features
+			'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+			// Your account includes a free trial of TinyMCE premium features
+			// Try the most popular premium features until Apr 30, 2025:
+			'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+		  ],
+		  toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+		  tinycomments_mode: 'embedded',
+		  tinycomments_author: 'Author name',
+		  mergetags_list: [
+			{ value: 'First.Name', title: 'First Name' },
+			{ value: 'Email', title: 'Email' },
+		  ],
+		  ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+		});
+	</script>
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}

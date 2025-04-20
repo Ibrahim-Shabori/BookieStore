@@ -6,6 +6,8 @@ using BookieStore.DataAccess.Repository.IRepository;
 using BookieStore.DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BookieStore.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using BookieStore.Utility;
 
 
 
@@ -13,6 +15,7 @@ namespace BookieStoreWeb.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
 
@@ -115,21 +118,6 @@ namespace BookieStoreWeb.Areas.Admin.Controllers
                 }).ToList();
                 return View(productVM);
             }
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(int? id)
-        {
-            Product? existingProduct = _unitOfWork.Product.Get(c => c.Id == id);
-            if (existingProduct == null)
-            {
-                return NotFound();
-            }
-
-            _unitOfWork.Product.Remove(existingProduct);
-            _unitOfWork.Save();
-            TempData["success"] = "Product deleted successfully!";
-            return RedirectToAction("index");
         }
 
 
