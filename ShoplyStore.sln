@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookieStoreWeb", "BookieStoreWeb.csproj", "{D303D2F6-7AC4-4BCE-9608-6D841BEB5E36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoplyStoreWeb", "ShoplyStoreWeb.csproj", "{D303D2F6-7AC4-4BCE-9608-6D841BEB5E36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookieStore.DataAccess", "..\BookiStore.DataAccess\BookieStore.DataAccess.csproj", "{347BCD7E-AE51-4406-B87B-C6A7B5A3D931}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoplyStore.DataAccess", "..\BookiStore.DataAccess\ShoplyStore.DataAccess.csproj", "{347BCD7E-AE51-4406-B87B-C6A7B5A3D931}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookieStore.Models", "..\BookieStore.Models\BookieStore.Models.csproj", "{8C00FDEE-1DC3-4E1D-AE8A-CA303AB8EC44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoplyStore.Models", "..\BookieStore.Models\ShoplyStore.Models.csproj", "{8C00FDEE-1DC3-4E1D-AE8A-CA303AB8EC44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookieStore.Utility", "..\BookieStore.Utility\BookieStore.Utility.csproj", "{FAEBBDF1-6232-4866-9B26-2C2D74D29C70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoplyStore.Utility", "..\BookieStore.Utility\ShoplyStore.Utility.csproj", "{FAEBBDF1-6232-4866-9B26-2C2D74D29C70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

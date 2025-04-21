@@ -1,11 +1,11 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using BookieStore.Models;
-using BookieStore.DataAccess.Repository.IRepository;
+using ShoplyStore.Models;
+using ShoplyStore.DataAccess.Repository.IRepository;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
-namespace BookieStoreWeb.Areas.Customer.Controllers;
+namespace ShoplyStoreWeb.Areas.Customer.Controllers;
 
 [Area("Customer")]
 public class HomeController : Controller

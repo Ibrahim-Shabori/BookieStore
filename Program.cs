@@ -1,8 +1,8 @@
-using BookieStore.DataAccess.Data;
-using BookieStore.DataAccess.Repository;
-using BookieStore.DataAccess.Repository.IRepository;
-using BookieStore.Models;
-using BookieStore.Utility;
+using ShoplyStore.DataAccess.Data;
+using ShoplyStore.DataAccess.Repository;
+using ShoplyStore.DataAccess.Repository.IRepository;
+using ShoplyStore.Models;
+using ShoplyStore.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;

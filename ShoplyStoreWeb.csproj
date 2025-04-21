@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BookieStore.Models\BookieStore.Models.csproj" />
-    <ProjectReference Include="..\BookiStore.DataAccess\BookieStore.DataAccess.csproj" />
+    <ProjectReference Include="..\BookieStore.Models\ShoplyStore.Models.csproj" />
+    <ProjectReference Include="..\BookiStore.DataAccess\ShoplyStore.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>

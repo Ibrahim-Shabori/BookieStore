@@ -1,12 +1,12 @@
-﻿using BookieStore.DataAccess.Repository.IRepository;
-using BookieStore.Models.ViewModels;
-using BookieStore.Models;
+﻿using ShoplyStore.DataAccess.Repository.IRepository;
+using ShoplyStore.Models.ViewModels;
+using ShoplyStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using BookieStore.Utility;
+using ShoplyStore.Utility;
 using Microsoft.AspNetCore.Authorization;
 
-namespace BookieStoreWeb.Areas.Admin.Controllers
+namespace ShoplyStoreWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = SD.Role_Admin)]

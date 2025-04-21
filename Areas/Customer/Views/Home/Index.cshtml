@@ -1,31 +1,134 @@
 ﻿@model IEnumerable<Product>
+<section class="hero-section position-relative overflow-hidden full-width-section">
+	<canvas id="hero-canvas" class="position-absolute top-0 start-0 w-100 h-100"></canvas>
+	<div class="container">
+		<div class="row py-5 align-items-center min-vh-50">
+			<div class="col-lg-6 hero-content text-center text-lg-start">
+				<h1 class="display-4 fw-bold mb-3">Shop the Latest Books</h1>
+				<p class="lead text-muted mb-4">Discover the best books at unbeatable prices</p>
+			</div>
+			<div class="col-lg-6 d-none d-lg-block position-relative">
+				
+			</div>
+		</div>
+	</div>
+</section>
 
 <div class="row pb-3">
-    @foreach (var product in Model)
-    {
-        <div class="col-lg-3 col-sm-6">
-            <div class="row p-2">
-                <div class="col-12 p-1">
-                    <div class="card border-0 p-3 shadow border-top border-5 rounded">
-                        <img src="@product.ImageUrl" class="card-img-top rounded" />
-                        <div class="card-body pb-0">
+	@foreach(var p in Model)
+	{
+        <div class="col-lg-3 col-sm-6 d-flex">
+            <div class="row p-2 w-100">
+                <div class="col-12 p-1 d-flex">
+                    <div class="card border-0 p-3 shadow border-top border-5 rounded w-100 d-flex flex-column">
+                        <img src="@p.ImageUrl" class="card-img-top rounded" />
+                        <div class="card-body pb-0 d-flex flex-column">
                             <div class="pl-1">
-                                <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Title</p>
-                                <p class="card-title text-warning text-center"> by <b>@product.Author</b></p>
+                                <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@p.Title</p>
+                                <p class="card-title text-warning text-center">by <b>@p.Author</b></p>
                             </div>
                             <div class="pl-1">
-                                <p class="text-dark text-opacity-75 text-center mb-0">List Price: <span class="text-decoration-line-through">@product.ListPrice.ToString("c")</span></p>
+                                <p class="text-dark text-opacity-75 text-center mb-0">
+                                    List Price:
+                                    <span class="text-decoration-line-through">@p.ListPrice.ToString("c")</span>
+                                </p>
                             </div>
-                            <div class="pl-1">
-                                <p class="text-dark text-opacity-75 text-center">As low as: <span>@product.Price100.ToString("c")</span></p>
+                            <div class="pl-1 mb-2">
+                                <p class="text-dark text-opacity-75 text-center">
+                                    As low as:
+                                    <span>@p.Price100.ToString("c")</span>
+                                </p>
                             </div>
                         </div>
-                        <div>
-                            <a asp-action ="Details" asp-route-productId="@product.Id" class="btn btn-primary bg-gradient border-0 form-control">Details</a>
+                        <div class="mt-auto">
+                            <a asp-action="Details" asp-route-productId="@p.Id" class="btn btn-primary bg-gradient border-0 form-control">Details</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    }
+	}
 </div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('hero-canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas dimensions
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            }
+
+            // Create particles
+            let particles = [];
+            function initParticles() {
+                particles = [];
+                const particleCount = Math.floor(canvas.width / 20);
+
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        radius: Math.random() * 3 + 1,
+                        color: `rgba(255, 255, 255, ${Math.random() * 0.3 + 0.1})`,
+                        speedX: Math.random() * 0.5 - 0.25,
+                        speedY: Math.random() * 0.5 - 0.25
+                    });
+                }
+            }
+
+            // Draw gradient background
+            function drawBackground() {
+                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                gradient.addColorStop(0, '#e0d0ff');
+                gradient.addColorStop(1, '#a98fde');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+
+            // Draw and update particles
+            function drawParticles() {
+                particles.forEach(particle => {
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = particle.color;
+                    ctx.fill();
+
+                    // Update position
+                    particle.x += particle.speedX;
+                    particle.y += particle.speedY;
+
+                    // Reset if off-screen
+                    if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
+                    if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
+                });
+            }
+
+            // Animation loop
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawBackground();
+                drawParticles();
+                requestAnimationFrame(animate);
+            }
+
+            // Initialize
+            window.addEventListener('resize', function() {
+                resizeCanvas();
+                initParticles();
+            });
+
+            resizeCanvas();
+            initParticles();
+            animate();
+        });
+
+        function showDetails(productId) {
+            // Implement quick view functionality
+            console.log('Quick view for product:', productId);
+        }
+    </script>
+}

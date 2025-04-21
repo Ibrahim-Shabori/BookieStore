@@ -1,15 +1,15 @@
-﻿using BookieStore.DataAccess.Data;
-using BookieStore.Models;
+﻿using ShoplyStore.DataAccess.Data;
+using ShoplyStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using BookieStore.DataAccess.Repository.IRepository;
-using BookieStore.DataAccess.Repository;
-using BookieStore.Utility;
+using ShoplyStore.DataAccess.Repository.IRepository;
+using ShoplyStore.DataAccess.Repository;
+using ShoplyStore.Utility;
 using Microsoft.AspNetCore.Authorization;
 
 
 
-namespace BookieStoreWeb.Areas.Admin.Controllers
+namespace ShoplyStoreWeb.Areas.Admin.Controllers
 {
 
     [Area("Admin")]

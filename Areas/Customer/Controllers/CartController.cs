@@ -1,13 +1,13 @@
-﻿using BookieStore.DataAccess.Repository.IRepository;
-using BookieStore.Models;
-using BookieStore.Models.ViewModels;
-using BookieStore.Utility;
+﻿using ShoplyStore.DataAccess.Repository.IRepository;
+using ShoplyStore.Models;
+using ShoplyStore.Models.ViewModels;
+using ShoplyStore.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 using System.Security.Claims;
 
-namespace BookieStoreWeb.Areas.Customer.Controllers
+namespace ShoplyStoreWeb.Areas.Customer.Controllers
 {
 
     [Area("Customer")]

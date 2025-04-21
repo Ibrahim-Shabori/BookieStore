@@ -10,9 +10,9 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using BookieStore.DataAccess.Repository.IRepository;
-using BookieStore.Models;
-using BookieStore.Utility;
+using ShoplyStore.DataAccess.Repository.IRepository;
+using ShoplyStore.Models;
+using ShoplyStore.Utility;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -24,7 +24,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace BookieStoreWeb.Areas.Identity.Pages.Account
+namespace ShoplyStoreWeb.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
