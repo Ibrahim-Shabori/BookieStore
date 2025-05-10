@@ -4,6 +4,7 @@ using ShoplyStore.Models;
 using ShoplyStore.DataAccess.Repository.IRepository;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using ShoplyStore.Utility;
 
 namespace ShoplyStoreWeb.Areas.Customer.Controllers;
 
@@ -21,6 +22,15 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var claimsIdentity = (ClaimsIdentity)User.Identity;
+        var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+        if (claim != null)
+        {
+            var userId = claim.Value;
+            var count = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId).Count();
+            HttpContext.Session.SetInt32(SD.SessionCart, count);
+        }
+
         IEnumerable<Product> productList = _unitOfWork.Product.GetAll(IncludeProperties: "Category");
         return View(productList);
     }
@@ -48,13 +58,17 @@ public class HomeController : Controller
         if (cartFromDb == null)
         {
             _unitOfWork.ShoppingCart.Add(cart);
+            _unitOfWork.Save();
+            HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u=> u.ApplicationUserId == userId).Count());
         }
         else
         {
             cartFromDb.Count += cart.Count;
+
             _unitOfWork.ShoppingCart.Update(cartFromDb);
+            _unitOfWork.Save();
         }
-        _unitOfWork.Save();
+        
         TempData["success"] = "Shopping Cart Updated Successfully";
         return RedirectToAction(nameof(Index));
     }

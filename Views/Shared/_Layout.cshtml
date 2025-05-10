@@ -1,4 +1,8 @@
-﻿<!-- _Layout.cshtml (Header Section) -->
+﻿@using Microsoft.AspNetCore.Http
+
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!-- _Layout.cshtml (Header Section) -->
 @using ShoplyStore.Utility
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +26,7 @@
                     <i class="bi bi-book me-2"></i>Bookly
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse">
@@ -61,7 +65,7 @@
                         <a class="nav-link position-relative mx-2" asp-area="Customer" asp-controller="Cart" asp-action="Index">
                             <i class="bi bi-cart fs-5"></i>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-                                0
+								@await Component.InvokeAsync("ShoppingCart") 
                             </span>
                         </a>
 
@@ -79,6 +83,7 @@
                                     <li><a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Products</a></li>
                                     <li><a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Companies</a></li>
                                     <li><a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="Index">Order Management</a></li>
+                                    <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Create User</a></li>
                                 </ul>
                             </div>
                         }
